@@ -25,13 +25,6 @@ class TaskReader:
 
         try:
             l = int(l)
-        except:
-            return False
-
-        # Skip space
-        try:
-            if self._stream.read(1) != ' ':
-                return False
         except Exception as e:
             warnings.warn('Could not parse message length: ' + str(e), RuntimeWarning)
             return False
