@@ -57,6 +57,14 @@ class TaskReader:
 
         return True
 
+    def save_to_file(self, filename):
+        d = self._comm.SerializeToString()
+
+        with open(filename, 'w') as f:
+            f.write(str(len(d)))
+            f.write(' ')
+            f.write(d)
+
     @property
     def id(self):
         return self._task.id
