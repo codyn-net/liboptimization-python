@@ -1,4 +1,5 @@
 from optimization.messages import task_pb2 as task
+import warnings
 
 class TaskReader:
     def __init__(self, stream=None):
@@ -18,7 +19,8 @@ class TaskReader:
 
         try:
             l = ''.join(untilspace)
-        except:
+        except Exception as e:
+            warnings.warn('Unable to read space: ' + str(e), RuntimeWarning)
             return False
 
         try:
@@ -30,21 +32,26 @@ class TaskReader:
         try:
             if self._stream.read(1) != ' ':
                 return False
-        except:
+        except Exception as e:
+            warnings.warn('Could not parse message length: ' + str(e), RuntimeWarning)
             return False
 
         # Read protobuf message
         try:
             msg = self._stream.read(l)
-        except:
+        except Exception as e:
+            warnings.warn('Could not read message: ' + str(e), RuntimeWarning)
             return False
 
         try:
-            comm = task.Communication.ParseFromString(msg)
-        except:
+            comm = task.Communication()
+            comm.ParseFromString(msg)
+        except Exception as e:
+            warnings.warn('Could not parse message: ' + str(e), RuntimeWarning)
             return False
 
         if comm.type != task.Communication.CommunicationTask:
+            warnings.warn('Message is not of type `task\'', RuntimeWarning)
             return False
 
         self._task = comm.task
