@@ -7,6 +7,8 @@ class TaskReader:
         self._settings_map = None
         self._parameters_map = None
         self._data_map = None
+        self._task = None
+        self._comm = None
 
         if not self._stream is None:
             self._extract()
@@ -14,6 +16,9 @@ class TaskReader:
     def _extract(self):
         if self._stream is None:
             return False
+
+        self._task = None
+        self._comm = None
 
         untilspace = iter(lambda: self._stream.read(1), ' ')
 
@@ -48,6 +53,8 @@ class TaskReader:
             return False
 
         self._task = comm.task
+        self._comm = comm
+
         return True
 
     @property
