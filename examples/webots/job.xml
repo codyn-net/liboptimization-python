@@ -1,0 +1,13 @@
+<job>
+  <optimizer name="pso">
+    <parameters>
+      <parameter name="p" repeat="1-10" min="-1" max="1"/>
+    </parameters>
+    <fitness>
+      <expression>f1 * f2</expression>
+    </fitness>
+  </optimizer>
+  <dispatcher name="webots">
+    <setting name="world">$OPTIMIZATION_JOB_PATH/worlds/test.wbt</setting>
+  </dispatcher>
+</job>
