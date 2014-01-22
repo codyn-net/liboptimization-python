@@ -1,3 +1,6 @@
+# python interpreter
+PYTHON = python
+
 # All the messages
 PROTO_MESSAGES = task command discovery monitor
 
@@ -48,4 +51,10 @@ $(PROTO_PY_FILES): $(PROTO_FILES)
 	protoc --python_out=$(FETCH_DIR) -I$(FETCH_DIR) $(PROTO_DIR)/$${pname%_pb2}.proto; \
 	cp $(PROTO_DIR)/$${pname}.py optimization/messages/;
 
-.PHONY : clean-proto update-proto all
+install:
+	$(PYTHON) setup.py install
+
+install-user:
+	$(PYTHON) setup.py install --user
+
+.PHONY : clean-proto update-proto all install
