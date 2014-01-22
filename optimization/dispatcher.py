@@ -12,13 +12,20 @@ class Dispatcher(taskreader.TaskReader):
         comm = task.Communication()
 
         comm.type = task.Communication.CommunicationResponse
-        comm.response = r
+        comm.response.CopyFrom(r)
+
+        self._send_comm(comm)
+
+    def _send_comm(self, comm):
+        if self._outstream is None:
+            return
 
         d = comm.SerializeToString()
 
         self._outstream.write(str(len(d)))
         self._outstream.write(' ')
         self._outstream.write(d)
+        self._outstream.flush()
 
     def respond(self, f, d={}):
         fitness = {}

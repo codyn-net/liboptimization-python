@@ -11,7 +11,15 @@ class TaskReader:
         self._comm = None
 
         if not self._stream is None:
-            self._extract()
+            self._has_task = self._extract()
+        else:
+            self._has_task = False
+
+    def __nonzero__(self):
+        return self._has_task
+
+    def __bool__(self):
+        return self._has_task
 
     def _extract(self):
         if self._stream is None:
