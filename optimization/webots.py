@@ -42,8 +42,6 @@ class Webots(Dispatcher):
             comm.type = task.Communication.CommunicationPing
             comm.ping.id = self.id
 
-            comm.response.CopyFrom(r)
-
             self._send_comm(comm)
 
             time.sleep(15)
