@@ -1,7 +1,7 @@
 from optimization.messages import task_pb2 as task
 from optimization.dispatcher import Dispatcher
 
-import warnings, os, socket, threading
+import warnings, os, socket, threading, time
 
 class Webots(Dispatcher):
     class IOSocket:
