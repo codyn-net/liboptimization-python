@@ -16,6 +16,10 @@ class Dispatcher(taskreader.TaskReader):
 
         self._send_comm(comm)
 
+        # Closing socket to flush, only one response can be send
+        self._outstream.close()
+        self._outstream = None
+
     def _send_comm(self, comm):
         if self._outstream is None:
             return
