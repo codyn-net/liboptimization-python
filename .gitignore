@@ -1,1 +1,4 @@
 .fetch-proto
+.proto-files.stamp
+*.pyc
+/build
